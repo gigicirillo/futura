@@ -1,0 +1,9 @@
+const header=document.querySelector('.site-header'),toggle=document.querySelector('.menu-toggle'),mobile=document.querySelector('.mobile-nav');
+toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));mobile.classList.toggle('open',!open)});
+mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobile.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
+addEventListener('scroll',()=>{const fixed=scrollY>40;header.style.position=fixed?'fixed':'absolute';header.style.background=fixed?'rgba(10,10,10,.94)':'transparent';header.style.backdropFilter=fixed?'blur(12px)':'none'},{passive:true});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.getElementById('year').textContent=new Date().getFullYear();
+const banner=document.querySelector('.cookie-banner');if(!localStorage.getItem('futura-cookie-ok'))setTimeout(()=>banner.classList.add('show'),700);
+document.getElementById('accept-cookies')?.addEventListener('click',()=>{localStorage.setItem('futura-cookie-ok','1');banner.classList.remove('show')});
+document.getElementById('lead-form')?.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget),subject=encodeURIComponent('Richiesta informazioni dal nuovo sito Futura Clubs'),body=encodeURIComponent('Nome: '+d.get('name')+'\nTelefono: '+d.get('phone')+'\nClub: '+d.get('club')+'\nObiettivo: '+d.get('goal'));location.href='mailto:info@futuraclubs.it?subject='+subject+'&body='+body;document.querySelector('.form-status').textContent='Si sta aprendo la tua app email per completare la richiesta.'});
