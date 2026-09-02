@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gigicirillo.github.io/futura/sitemap.xml
